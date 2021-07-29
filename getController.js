@@ -48,7 +48,7 @@
 // }//end of the module 
 
 //review
-
+//require socket io and set the cors to allow communication with the client and the server
 const socketIo = require('socket.io')(8080,{ cors:{
 origins:["http://localhost:3000/"],
 methods:["GET" , "POST"]
@@ -73,21 +73,22 @@ app.get('/' , (request , response ) =>{
 
 socketIo.on("connection" , (socket)=>{
 
-
+//set interval to refresh the query every second
    setInterval(()=>{
-
+//create the query for the category table
      connectionDatabase.query('SELECT * FROM category' , (error , results)=>{
          if(error) throw error;
          else{
+             //convert the results from the query in JSON format 
           queryResults = JSON.parse(JSON.stringify(results))
          }
 
      })
-
+     //emit into show-category every second so the client will receive the data refreshed from the database passing the query results
      socketIo.emit('show-category' , queryResults);
    } , 1000)
 
-    
+  //when the client send a new category the socket recieves the event and insert the new data into the database
     socket.on('post-category' , (data) =>{
          connectionDatabase.query(`INSERT INTO category (categoryName) VALUES ("${data}")`)                
     })
