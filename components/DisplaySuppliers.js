@@ -17,7 +17,6 @@ getCategories = async ()=>{
 await axios.get('http://127.0.0.1:8000/suppliers').then( (response)  =>{ 
   this.setState({categories:response.data.body} , ()=>{ return this.state.categories })
 }).catch( (error)=>{  console.log(error)})
-
 }
 
 componentDidMount(){
@@ -39,7 +38,7 @@ render(){
         </div>
     )
    })//end of the map
-    }
+}
  </div>
     )
 }

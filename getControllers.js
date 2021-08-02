@@ -1,4 +1,5 @@
 
+const fileUpload = require('express-fileupload');
 const mysql = require('mysql');
 const connectionDB = mysql.createConnection({
      host:'127.0.0.1',
@@ -34,9 +35,14 @@ app.get('/suppliers' , (request , response )=>{
       response.json({
           message:'Hello from server',
           body: supplierDB
-   
       })
    })
    
 
+app.get('/products' , (request , response) =>{
+
+response.send('<h1>You are in the products section</h1>')
+
+
+})
 }
