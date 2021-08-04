@@ -32,7 +32,7 @@ getSuppliers = async ()=>{
     getImages = async ()=>{
         await axios.get('http://127.0.0.1:8000/products').then( response =>{
     //    this.setState({image:response.data.body[0].imagep.data.toString('base64')} , ()=>{ return this.state.image});
-       this.setState({photo:response.data.photo}, ()=>{ return this.state.photo}) 
+    this.setState({photo:response.data.photo[0].imagep} , ()=>{ return this.state.photo})
 })
         }
     
@@ -49,12 +49,6 @@ handleChange = (event)=>{
 
 
 submitHandler = (event)=>{
-//     event.preventDefault();
-//   const { image } = this.state;
-//   const data = new FormData();  
-//   data.append('productphoto' , image);
-
-//    axios.post('http://127.0.0.1:8000/products' , data).then( response =>{ console.log(response)}).catch(error =>{ console.log(error)});
 
 
 event.preventDefault();
@@ -92,7 +86,7 @@ return(
            </form>
 
 
-     <img src={this.state.photo} height="240px" />
+     <img src={`data:image/jpg;base64,${this.state.photo}`} height="240px" />
 
 
     </div>
